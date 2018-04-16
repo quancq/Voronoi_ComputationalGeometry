@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package datastructure.voronoi_diagram;
 
 /**
  *
  * @author quancq
  */
-public class MainGui {
+public class Face {
     
 }

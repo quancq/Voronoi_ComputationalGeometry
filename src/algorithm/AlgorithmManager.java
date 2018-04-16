@@ -7,7 +7,7 @@ package algorithm;
 
 /**
  *
- * @author ad
+ * @author quancq
  */
 public class AlgorithmManager {
     

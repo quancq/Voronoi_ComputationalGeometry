@@ -7,7 +7,7 @@ package datastructure.beachline;
 
 /**
  *
- * @author ad
+ * @author quancq
  */
 public class BeachLine {
     
