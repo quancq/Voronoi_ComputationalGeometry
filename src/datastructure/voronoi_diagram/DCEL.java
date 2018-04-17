@@ -9,14 +9,16 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
+ * DCEL (doubly connected edge list) is a popular data structure for
+ * representation of planar subdivision problem
  *
  * @author quancq
  */
 public class DCEL {
 
-    private HashSet<Vertex> hsVertices;
-    private HashSet<HalfEdge> hsHalfEdges;
-    private HashSet<Face> hsFaces;
+    protected HashSet<Vertex> hsVertices;
+    protected HashSet<HalfEdge> hsHalfEdges;
+    protected HashSet<Face> hsFaces;
 
     public DCEL() {
         this.hsVertices = new HashSet<>();
@@ -79,7 +81,7 @@ public class DCEL {
         hsHalfEdges.forEach((e) -> {
             strBuilder.append(e);
         });
-        
+
         strBuilder.append("\nList Face:\n");
         hsFaces.forEach((f) -> {
             strBuilder.append(f);
@@ -87,6 +89,27 @@ public class DCEL {
 
         strBuilder.append("\n============= DCEL =============");
         return strBuilder.toString();
+    }
+
+    /**
+     * @param face which needed to find boundary
+     * @return list of vertices counter clockwise on boundary of face
+     */
+    public ArrayList<Vertex> getBoundaryOfFace(Face face) {
+        HalfEdge halfEdge = face.getOuterComponent();
+        Vertex startVertex = halfEdge.getOriginVertex();
+        Vertex currVertex = startVertex;
+
+        ArrayList<Vertex> listVerticesOnBoundary = new ArrayList<>();
+
+        do {
+            listVerticesOnBoundary.add(currVertex);
+            halfEdge = halfEdge.getNextEdge();
+            currVertex = halfEdge.getOriginVertex();
+
+        } while (!currVertex.equals(startVertex));
+
+        return listVerticesOnBoundary;
     }
 
 }

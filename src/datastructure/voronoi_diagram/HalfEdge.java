@@ -69,7 +69,7 @@ public class HalfEdge {
 
     @Override
     public String toString() {
-        return "HalfEdge(" + originVertex + ", " + getDestVertex() + ")";
+        return "HE(" + originVertex + ", " + getDestVertex() + ")";
     }
 
     @Override

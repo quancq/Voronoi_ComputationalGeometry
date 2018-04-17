@@ -8,26 +8,21 @@ package datastructure.voronoi_diagram;
 import java.util.Objects;
 
 /**
+ * Class implement vertex of DCEL
  *
  * @author quancq
  */
-public class Vertex {
-    
-    private Point location;                 // location is a vertex of Voronoi diagram
-    private HalfEdge incidentEdge;          // incidentEdge is an arbitrary half-edge that has location as its origin
-    
+public class Vertex extends Point {
 
-    public Vertex(Point location) {
-        this.location = location;
+    private HalfEdge incidentEdge;          // incidentEdge is an arbitrary half-edge that has vertex as its origin
+
+    public Vertex(double x, double y) {
+        super(x, y);
     }
 
-    public Vertex(Point location, HalfEdge incidentEdge) {
-        this.location = location;
+    public Vertex(double x, double y, HalfEdge incidentEdge) {
+        super(x, y);
         this.incidentEdge = incidentEdge;
-    }
-    
-    public Point getLocation() {
-        return location;
     }
 
     public HalfEdge getIncidentEdge() {
@@ -40,13 +35,13 @@ public class Vertex {
 
     @Override
     public String toString() {
-        return "Vertex" + location;
+        return "V" + super.toString();
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + location.hashCode();
+        hash = 37 * hash + super.hashCode();
         hash = 37 * hash + Objects.hashCode(this.incidentEdge);
         return hash;
     }
@@ -63,7 +58,9 @@ public class Vertex {
             return false;
         }
         Vertex other = (Vertex) obj;
-        return location.equals(other.location) && incidentEdge.equals(other.incidentEdge);
+        return super.x == other.x
+                && super.y == other.y
+                && incidentEdge.equals(other.incidentEdge);
     }
 
 }
