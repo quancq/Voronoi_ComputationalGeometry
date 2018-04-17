@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package util;
 
 /**
  *
  * @author quancq
  */
-public class MainGui {
-    
+public class Math {
+//    public static final double PRECISION = 1000000.0;
+//    public static final double EPSILON = 1 / PRECISION;
 }

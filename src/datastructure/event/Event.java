@@ -7,7 +7,7 @@ package datastructure.event;
 
 /**
  *
- * @author ad
+ * @author quancq
  */
 public class Event {
     

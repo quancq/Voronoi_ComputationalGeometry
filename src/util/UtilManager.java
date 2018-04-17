@@ -7,7 +7,7 @@ package util;
 
 /**
  *
- * @author ad
+ * @author quancq
  */
 public class UtilManager {
     
