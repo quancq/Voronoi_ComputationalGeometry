@@ -14,7 +14,7 @@ import static java.lang.Math.abs;
  * @author quancq
  */
 public class Point {
-
+    // Point is either site or any point on planar subdivision
     public final double x;
     public final double y;
 
@@ -25,7 +25,8 @@ public class Point {
 
     @Override
     public String toString() {
-        return "(" + x + "," + y + ")";
+//        return "(" + x + "," + y + ")";
+        return String.format("(%.4f, %.4f)", x, y);
     }
 
 //    @Override

@@ -5,21 +5,23 @@
  */
 package datastructure.voronoi_diagram;
 
+import java.util.Objects;
+
 /**
  *
  * @author quancq
  */
 public class Vertex {
     
-    private Point location;               // location is a vertex of Voronoi diagram
-    private Edge incidentEdge;
+    private Point location;                 // location is a vertex of Voronoi diagram
+    private HalfEdge incidentEdge;          // incidentEdge is an arbitrary half-edge that has location as its origin
     
 
     public Vertex(Point location) {
         this.location = location;
     }
 
-    public Vertex(Point location, Edge incidentEdge) {
+    public Vertex(Point location, HalfEdge incidentEdge) {
         this.location = location;
         this.incidentEdge = incidentEdge;
     }
@@ -28,19 +30,25 @@ public class Vertex {
         return location;
     }
 
-    public Edge getIncidentEdge() {
+    public HalfEdge getIncidentEdge() {
         return incidentEdge;
     }
-    
+
+    public void setIncidentEdge(HalfEdge incidentEdge) {
+        this.incidentEdge = incidentEdge;
+    }
 
     @Override
     public String toString() {
-        return location.toString();
+        return "Vertex" + location;
     }
-
+    
     @Override
     public int hashCode() {
-        return location.hashCode();
+        int hash = 7;
+        hash = 37 * hash + location.hashCode();
+        hash = 37 * hash + Objects.hashCode(this.incidentEdge);
+        return hash;
     }
 
     @Override
@@ -55,8 +63,7 @@ public class Vertex {
             return false;
         }
         Vertex other = (Vertex) obj;
-        return location.equals(other.location);
+        return location.equals(other.location) && incidentEdge.equals(other.incidentEdge);
     }
-    
-    
+
 }
