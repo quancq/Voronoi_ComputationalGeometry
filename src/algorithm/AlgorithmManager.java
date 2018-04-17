@@ -20,7 +20,7 @@ public class AlgorithmManager {
     public static final String Fortune_Voronoi = "Fortune Voronoi";
     public static final String Euclidean = "Euclidean";
 
-    public static double calAcreageOfConvexPolygon(List<? extends Point> listVertices, String nameAlgo) {
+    public static double calcAcreageOfConvexPolygon(List<? extends Point> listVertices, String nameAlgo) {
         switch (nameAlgo) {
             case Triangulation_DAC:
                 return CalculateAcreageOfConvexPolygonAlgorithm.triangulationDivideAndConquer(listVertices);
@@ -29,12 +29,12 @@ public class AlgorithmManager {
         }
     }
 
-    public static double calDistance(Point p1, Point p2, String metric) {
+    public static double calcDistance(Point p1, Point p2, String metric) {
         switch (metric) {
             case Euclidean:
-                return CalculateDistanceAlgorithm.calEuclidean(p1, p2);
+                return CalculateDistanceAlgorithm.calcEuclidean(p1, p2);
             default:
-                return CalculateDistanceAlgorithm.calEuclidean(p1, p2);
+                return CalculateDistanceAlgorithm.calcEuclidean(p1, p2);
         }
     }
 }

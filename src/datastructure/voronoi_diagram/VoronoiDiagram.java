@@ -52,7 +52,7 @@ public class VoronoiDiagram extends DCEL {
         for (Point site : listSites) {
             Face face = hmPointToFace.get(site);
             ArrayList<Vertex> listVerticesOnBoundary = getBoundaryOfFace(face);
-            double acreage = AlgorithmManager.calAcreageOfConvexPolygon(
+            double acreage = AlgorithmManager.calcAcreageOfConvexPolygon(
                     listVerticesOnBoundary,
                     AlgorithmManager.Triangulation_DAC
             );
@@ -75,7 +75,7 @@ public class VoronoiDiagram extends DCEL {
         for (Vertex v : getListVertices()) {
             Face face = v.getIncidentEdge().getIncidentFace();
             Point site = hmFaceToPoint.get(face);
-            double distance = AlgorithmManager.calDistance(v, site, AlgorithmManager.Euclidean);
+            double distance = AlgorithmManager.calcDistance(v, site, AlgorithmManager.Euclidean);
             if (distance < minDistance) {
                 minDistance = distance;
                 furthestVertex = v;

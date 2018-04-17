@@ -14,7 +14,7 @@ import datastructure.voronoi_diagram.Point;
  * @author quancq
  */
 public class CalculateDistanceAlgorithm {
-    public static double calEuclidean(Point p1, Point p2){
+    public static double calcEuclidean(Point p1, Point p2){
         return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
     }
 }
