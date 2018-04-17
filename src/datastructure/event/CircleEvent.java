@@ -9,6 +9,6 @@ package datastructure.event;
  *
  * @author quancq
  */
-public abstract class Event {
+public class CircleEvent extends Event{
     
 }
