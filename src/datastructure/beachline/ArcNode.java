@@ -6,6 +6,7 @@
 package datastructure.beachline;
 
 import datastructure.event.CircleEvent;
+import datastructure.voronoi_diagram.Point;
 
 /**
  *
@@ -16,11 +17,13 @@ public class ArcNode {
     private BreakpointNode leftNode;
     private BreakpointNode rightNode;
     private CircleEvent circleEvent;
+    private Point site;
 
-    public ArcNode(BreakpointNode leftNode, BreakpointNode rightNode, CircleEvent circleEvent) {
+    public ArcNode(BreakpointNode leftNode, BreakpointNode rightNode, CircleEvent circleEvent, Point site) {
         this.leftNode = leftNode;
         this.rightNode = rightNode;
         this.circleEvent = circleEvent;
+        this.site = site;
     }
 
     public BreakpointNode getLeftNode() {
@@ -31,8 +34,20 @@ public class ArcNode {
         return rightNode;
     }
 
+    public ArcNode getLeftArc() {
+        return leftNode.getLeftNode();
+    }
+
+    public ArcNode getRightArc() {
+        return rightNode.getRightNode();
+    }
+
     public CircleEvent getCircleEvent() {
         return circleEvent;
+    }
+
+    public Point getSite() {
+        return site;
     }
 
     public void setLeftNode(BreakpointNode leftNode) {
@@ -47,10 +62,13 @@ public class ArcNode {
         this.circleEvent = circleEvent;
     }
 
-    @Override
-    public String toString() {
-        return "ArcNode{" + "leftNode=" + leftNode + ", rightNode=" + rightNode + ", circleEvent=" + circleEvent + '}';
+    public void setSite(Point site) {
+        this.site = site;
     }
 
-    
+    @Override
+    public String toString() {
+        return "ArcNode{" + "leftNode=" + leftNode + ", rightNode=" + rightNode + ", circleEvent=" + circleEvent + ", site=" + site + '}';
+    }
+
 }
