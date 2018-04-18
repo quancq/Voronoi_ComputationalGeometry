@@ -56,23 +56,23 @@ public class BeachLine {
         ArrayList<ArcNode> tripleArcs = new ArrayList<>();
         switch (queryPosition) {
             case "middle": {
-                tripleArcs.add(queryArc.getLeftNode().getLeftNode());
+                tripleArcs.add(queryArc.getLeftArc());
                 tripleArcs.add(queryArc);
-                tripleArcs.add(queryArc.getRightNode().getRightNode());
+                tripleArcs.add(queryArc.getRightArc());
                 break;
             }
             case "left": {
-                ArcNode middleArc = queryArc.getRightNode().getRightNode();
+                ArcNode middleArc = queryArc.getRightArc();
                 tripleArcs.add(queryArc);
                 tripleArcs.add(middleArc);
-                tripleArcs.add(middleArc.getRightNode().getRightNode());
+                tripleArcs.add(middleArc.getRightArc());
                 break;
             }
             case "right": {
-                ArcNode middleArc = queryArc.getLeftNode().getLeftNode();
-                tripleArcs.add(queryArc);
+                ArcNode middleArc = queryArc.getLeftArc();
+                tripleArcs.add(middleArc.getLeftArc());
                 tripleArcs.add(middleArc);
-                tripleArcs.add(middleArc.getLeftNode().getLeftNode());
+                tripleArcs.add(queryArc);
                 break;
             }
             default:
@@ -81,4 +81,22 @@ public class BeachLine {
         return tripleArcs;
     }
 
+    /**
+     * 
+     * @param middleArc is middle arc in triple arc which need check exist potential circle event
+     * @return true if exist potential circle event, else return false
+     */
+    public boolean isConvergeTripleArcs(ArcNode middleArc){
+        BreakpointNode leftBreakPoint = middleArc.getLeftNode();
+        BreakpointNode rightBreakPoint = middleArc.getRightNode();
+        if(leftBreakPoint == null || rightBreakPoint == null){
+            return false;
+        }
+        Point leftSite = leftBreakPoint.getLeftSite();
+        Point middleSite = middleArc.getSite();
+        Point rightSite = leftBreakPoint.getRightSite();
+        
+        // return True if orentation of left-middle-right arcs is positive
+        return Point.calcOrentationOfTriplePoints(leftSite, middleSite, rightSite) > 0;
+    }
 }
