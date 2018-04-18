@@ -14,6 +14,7 @@ import static java.lang.Math.abs;
  * @author quancq
  */
 public class Point {
+
     // Point is either site or any point on planar subdivision
     public final double x;
     public final double y;
@@ -33,7 +34,6 @@ public class Point {
 //    public int hashCode() {
 //        return (int) (x * PRECISION * 31) + (int) (y * PRECISION);
 //    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -59,5 +59,10 @@ public class Point {
         hash = 37 * hash + (int) (Double.doubleToLongBits(this.y) ^ (Double.doubleToLongBits(this.y) >>> 32));
         return hash;
     }
-}
 
+    public static double calcOrentationOfTriplePoints(Point left, Point middle, Point right) {
+        double orent = right.y * (middle.x - left.x) + right.x * (left.y - middle.y)
+                + left.x * middle.y + left.y * middle.x;
+        return orent;
+    }
+}
