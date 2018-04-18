@@ -15,7 +15,7 @@ import java.util.Collection;
  * @author quancq
  */
 public abstract class Event {
-    private final Point point;
+    protected final Point point;
 
     public Event(Point point) {
         this.point = point;
