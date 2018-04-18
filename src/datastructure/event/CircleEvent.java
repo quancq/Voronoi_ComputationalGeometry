@@ -6,7 +6,10 @@
 package datastructure.event;
 
 import datastructure.beachline.ArcNode;
+import datastructure.beachline.BeachLine;
 import datastructure.voronoi_diagram.Point;
+import datastructure.voronoi_diagram.VoronoiDiagram;
+import java.util.Collection;
 
 /**
  *
@@ -14,24 +17,17 @@ import datastructure.voronoi_diagram.Point;
  */
 public class CircleEvent extends Event {
 
-    private Point lowestPointOfCircle;              // lowest point where 2 breakpoints converge
+//    private Point lowestPointOfCircle;              // lowest point where 2 breakpoints converge
     private ArcNode arcNode;                        // disappearing arc when circle event happen
 
     public CircleEvent(Point lowestPointOfCircle, ArcNode arcNode) {
-        this.lowestPointOfCircle = lowestPointOfCircle;
+        super(lowestPointOfCircle);
+//        this.lowestPointOfCircle = lowestPointOfCircle;
         this.arcNode = arcNode;
-    }
-
-    public Point getLowestPointOfCircle() {
-        return lowestPointOfCircle;
     }
 
     public ArcNode getArcNode() {
         return arcNode;
-    }
-
-    public void setLowestPointOfCircle(Point lowestPointOfCircle) {
-        this.lowestPointOfCircle = lowestPointOfCircle;
     }
 
     public void setArcNode(ArcNode arcNode) {
@@ -40,7 +36,12 @@ public class CircleEvent extends Event {
 
     @Override
     public String toString() {
-        return "CircleEvent{" + "lowestPointOfCircle=" + lowestPointOfCircle + ", arcNode=" + arcNode + '}';
+        return "CircleEvent{" + "arcNode=" + arcNode + '}';
+    }
+
+    @Override
+    public void handleEvent(Collection<Event> eventQueue, BeachLine beachLine, VoronoiDiagram voronoiDiagram) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
