@@ -7,6 +7,7 @@ package algorithm;
 
 import datastructure.voronoi_diagram.Point;
 import java.util.List;
+import util.UtilManager;
 
 /**
  * Class manage all algorithms of application
@@ -32,9 +33,9 @@ public class AlgorithmManager {
     public static double calcDistance(Point p1, Point p2, String metric) {
         switch (metric) {
             case Euclidean:
-                return CalculateDistanceAlgorithm.calcEuclidean(p1, p2);
+                return UtilManager.calcEuclidean(p1, p2);
             default:
-                return CalculateDistanceAlgorithm.calcEuclidean(p1, p2);
+                return UtilManager.calcEuclidean(p1, p2);
         }
     }
 }
