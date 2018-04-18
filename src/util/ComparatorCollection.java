@@ -6,6 +6,7 @@
 package util;
 
 import datastructure.beachline.Node;
+import datastructure.event.Event;
 import java.util.Comparator;
 
 /**
@@ -26,5 +27,15 @@ public class ComparatorCollection {
             return Double.compare(value1, value2);
         }
 
+    };
+    
+    public static Comparator EVENT_QUEUE_DESCENDING_Y_COMPARATOR = new Comparator() {
+        @Override
+        public int compare(Object o1, Object o2) {
+            double y1 = ((Event) o1).getPoint().y;
+            double y2 = ((Event) o2).getPoint().y;
+            
+            return Double.compare(y2, y1);
+        }
     };
 }
