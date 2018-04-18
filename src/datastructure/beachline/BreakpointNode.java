@@ -7,12 +7,14 @@ package datastructure.beachline;
 
 import datastructure.voronoi_diagram.HalfEdge;
 import datastructure.voronoi_diagram.Point;
+import static util.UtilManager.sq;
+import static java.lang.Math.sqrt;
 
 /**
  *
  * @author quancq
  */
-public class BreakpointNode extends Node{
+public class BreakpointNode extends Node {
 
     private Point leftSite;
     private Point rightSite;
@@ -79,8 +81,35 @@ public class BreakpointNode extends Node{
         return p.x;
     }
 
-    public Point calcBreakpoint(Point leftSite, Point rightSite, double yCoordinateOfSweepLine){
-        throw new UnsupportedOperationException("unsupport method");
+    public Point calcBreakpoint(Point leftSite, Point rightSite, double yCoordinateOfSweepLine) {
+        // transform coordinate
+        Point l = new Point(0, leftSite.y - yCoordinateOfSweepLine);
+        Point r = new Point(rightSite.x - leftSite.x, rightSite.y - yCoordinateOfSweepLine);
+
+        // compute intersection of parabolas
+        // solve two equal distance equations
+        // equation 1: sq(xTransform) + sq(l.y) = 2 * l.y * yTransform
+        // equation 2: sq(xTransform - r.x) + sq(r.y) = 2 * r.y * yTransform;
+        double xTransform, yTransform, x, y;
+        if (l.y == r.y) {
+            xTransform = r.x / 2.0;
+            yTransform = (4 * sq(l.y) + sq(r.x)) / (8 * l.y);
+        } else if (l.y == 0.0) {
+            xTransform = l.x; // x = 0
+            yTransform = (sq(r.x) + sq(r.y)) / (2 * r.y);
+        } else if (r.y == 0.0) {
+            xTransform = r.x;
+            yTransform = (sq(l.y) + sq(r.x)) / (2 * l.y);
+        } else {
+            xTransform = (l.y * r.x - sqrt(l.y * r.y * (sq(l.y - r.y) + sq(r.x)))) / (l.y - r.y);
+            yTransform = (sq(xTransform) + sq(l.y)) / (2 * l.y);
+        }
+
+        x = leftSite.x + xTransform;
+        y = yCoordinateOfSweepLine + yTransform;
+
+        Point breakpoint = new Point(x, y);
+        return breakpoint;
     }
-    
+
 }
