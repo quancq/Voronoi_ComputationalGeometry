@@ -38,15 +38,20 @@ public class BeachLine {
     /**
      *
      * @param site is query site
-     * @return arc node which above query site
+     * @return arc node which above query site. Return null if none arc node
      */
     public ArcNode getArcNode(Point site) {
         QuerySiteNode querySite = new QuerySiteNode(site);
-        Node resultNode = breakpointBST.floor(querySite);
+        Node leftCloserestNode = breakpointBST.floor(querySite);
 
         ArcNode arc = null;
-        if (resultNode != null) {
-            arc = ((BreakpointNode) resultNode).getRightNode();
+        if (leftCloserestNode != null) {
+            arc = ((BreakpointNode) leftCloserestNode).getRightNode();
+        } else {
+            Node rightCloserestNode = breakpointBST.higher(querySite);
+            if (rightCloserestNode != null) {
+                arc = ((BreakpointNode) rightCloserestNode).getLeftNode();
+            }
         }
 
         return arc;
@@ -82,20 +87,21 @@ public class BeachLine {
     }
 
     /**
-     * 
-     * @param middleArc is middle arc in triple arc which need check exist potential circle event
+     *
+     * @param middleArc is middle arc in triple arc which need check exist
+     * potential circle event
      * @return true if exist potential circle event, else return false
      */
-    public boolean isConvergeTripleArcs(ArcNode middleArc){
+    public boolean isConvergeTripleArcs(ArcNode middleArc) {
         BreakpointNode leftBreakPoint = middleArc.getLeftNode();
         BreakpointNode rightBreakPoint = middleArc.getRightNode();
-        if(leftBreakPoint == null || rightBreakPoint == null){
+        if (leftBreakPoint == null || rightBreakPoint == null) {
             return false;
         }
         Point leftSite = leftBreakPoint.getLeftSite();
         Point middleSite = middleArc.getSite();
         Point rightSite = leftBreakPoint.getRightSite();
-        
+
         // return True if orentation of left-middle-right arcs is positive
         return Point.calcOrentationOfTriplePoints(leftSite, middleSite, rightSite) > 0;
     }
