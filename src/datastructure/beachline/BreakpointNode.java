@@ -77,11 +77,11 @@ public class BreakpointNode extends Node {
 
     @Override
     public double getComparableValue() {
-        Point p = calcBreakpoint(leftSite, rightSite, BeachLine.coordinateOfSweepLine);
+        Point p = calcBreakpointCoordinate(BeachLine.coordinateOfSweepLine);
         return p.x;
     }
 
-    public Point calcBreakpoint(Point leftSite, Point rightSite, double yCoordinateOfSweepLine) {
+    public Point calcBreakpointCoordinate(double yCoordinateOfSweepLine) {
         // transform coordinate
         Point l = new Point(0, leftSite.y - yCoordinateOfSweepLine);
         Point r = new Point(rightSite.x - leftSite.x, rightSite.y - yCoordinateOfSweepLine);
