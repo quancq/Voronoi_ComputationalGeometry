@@ -5,10 +5,31 @@
  */
 package datastructure.event;
 
+import datastructure.voronoi_diagram.Point;
+
 /**
  *
  * @author quancq
  */
-public class SiteEvent {
-    
+public class SiteEvent extends Event {
+
+    private Point site;
+
+    public SiteEvent(Point site) {
+        this.site = site;
+    }
+
+    public Point getSite() {
+        return site;
+    }
+
+    public void setSite(Point site) {
+        this.site = site;
+    }
+
+    @Override
+    public String toString() {
+        return "SiteEvent{" + "site=" + site + '}';
+    }
+
 }

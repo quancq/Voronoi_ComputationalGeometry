@@ -9,6 +9,6 @@ package datastructure.event;
  *
  * @author quancq
  */
-public class Event {
+public abstract class Event {
     
 }
