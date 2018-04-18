@@ -5,7 +5,11 @@
  */
 package datastructure.event;
 
+import datastructure.beachline.ArcNode;
+import datastructure.beachline.BeachLine;
 import datastructure.voronoi_diagram.Point;
+import datastructure.voronoi_diagram.VoronoiDiagram;
+import java.util.Collection;
 
 /**
  *
@@ -13,23 +17,29 @@ import datastructure.voronoi_diagram.Point;
  */
 public class SiteEvent extends Event {
 
-    private Point site;
-
     public SiteEvent(Point site) {
-        this.site = site;
-    }
-
-    public Point getSite() {
-        return site;
-    }
-
-    public void setSite(Point site) {
-        this.site = site;
+        super(site);
     }
 
     @Override
-    public String toString() {
-        return "SiteEvent{" + "site=" + site + '}';
+    public void handleEvent(Collection<Event> eventQueue, BeachLine beachLine, VoronoiDiagram voronoiDiagram) {
+
+        // find arc above site event
+        ArcNode arcNode = beachLine.getArcNode(point);
+        if (arcNode == null) {
+            // corner case happen when this site event with any previous site event are same y-coordinate
+            return;
+        }
+
+        // if exist circle event corresponding with arc node then delete event from queue
+        CircleEvent circleEvent = arcNode.getCircleEvent();
+        if (circleEvent != null) {
+            eventQueue.remove(circleEvent);
+            arcNode.deleteCircleEvent();
+        }
+        
+        // replace arc node by sub-tree in beach line ...
+
     }
 
 }
