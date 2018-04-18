@@ -65,6 +65,10 @@ public class ArcNode {
     public void setSite(Point site) {
         this.site = site;
     }
+    
+    public void deleteCircleEvent(){
+        this.circleEvent = null;
+    }
 
     @Override
     public String toString() {
