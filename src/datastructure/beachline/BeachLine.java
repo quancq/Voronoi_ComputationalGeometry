@@ -9,6 +9,7 @@ import datastructure.voronoi_diagram.Point;
 import java.util.ArrayList;
 import java.util.TreeSet;
 import util.ComparatorCollection;
+import util.UtilManager;
 
 /**
  * Class represent beach line binary search tree structure
@@ -161,37 +162,61 @@ public class BeachLine {
         BreakpointNode breakpoint5 = new BreakpointNode();
         ArcNode arc6 = new ArcNode(splitArc.getSite());
         BreakpointNode breakpoint7 = splitArc.getRightNode();
-        
+        // Note: breakpoint 1 and 7 might not exist
+
         // update neighbors node of seven node
-        
-        // update neighbors node 1
-        // no change about neighbor
-        
-        // update neighbors node 2
+        // update neighbors of node 1
+        // no change about neighbor of node 1
+        // update neighbors of node 2
         arc2.setRightNode(breakpoint3);
         arc2.deleteCircleEvent();
-        
-        // update neighbors node 3
+
+        // update neighbors of node 3
         breakpoint3.setLeftNode(arc2);
         breakpoint3.setLeftSite(arc2.getSite());
         breakpoint3.setRightNode(arc4);
         breakpoint3.setRightSite(newSite);
-        
-        // update neighbors node 4
+
+        // update neighbors of node 4
         arc4.setLeftNode(breakpoint3);
         arc4.setRightNode(breakpoint5);
-        
-        // update neighbors node 5
+
+        // update neighbors of node 5
         breakpoint5.setLeftNode(arc4);
         breakpoint5.setLeftSite(newSite);
         breakpoint5.setRightNode(arc6);
         breakpoint5.setRightSite(arc2.getSite());
-        
-        // update neighbors node 6
-        // update neighbors node 7
-        
+
+        // update neighbors of node 6
+        arc6.setLeftNode(breakpoint5);
+        arc6.setRightNode(breakpoint7);
+
+        // update neighbors of node 7
+        if (breakpoint7 != null) {
+            breakpoint7.setLeftNode(arc6);
+        }
+
         // insert new nodes into beach line
-        
+        breakpointBST.add(breakpoint3);
+        breakpointBST.add(breakpoint5);
+        arcList.add(arc4);
+        arcList.add(arc6);
+
         return arc4;
+    }
+
+    /**
+     *
+     * @param middleArc is middle arc of triple arc and this arc has circle
+     * event
+     * @return lowest point of circle through triple site corresponding with
+     * triple arc where circle event happen
+     */
+    public Point getLowestPointOfCircle(ArcNode middleArc) {
+        Point p1 = middleArc.getLeftArc().getSite();
+        Point p2 = middleArc.getSite();
+        Point p3 = middleArc.getRightArc().getSite();
+
+        return UtilManager.calcCenterOfCircle(p1, p2, p3);
     }
 }
