@@ -86,4 +86,7 @@ public class VoronoiDiagram extends DCEL {
         return furthestVertex;
     }
 
+    public void insertHalfEdge(HalfEdge halfEdge){
+        hsHalfEdges.add(halfEdge);
+    }
 }
