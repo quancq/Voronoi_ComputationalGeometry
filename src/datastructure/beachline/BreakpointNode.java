@@ -148,7 +148,7 @@ public class BreakpointNode extends Node {
      * breakpoint. Return False if is right breakpoint
      */
     private boolean chooseLeftBreakPoint() {
-        if(rightSite.y < leftSite.y){
+        if (rightSite.y < leftSite.y) {
             // right site below of left site
             return true;
         }
