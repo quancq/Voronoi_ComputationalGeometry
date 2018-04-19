@@ -36,7 +36,7 @@ public class CircleEvent extends Event {
 
     @Override
     public String toString() {
-        return "CircleEvent{" + "arcNode=" + arcNode + '}';
+        return "CircleEvent{Point=" + point + ", arcNode=" + arcNode + '}';
     }
 
     @Override
