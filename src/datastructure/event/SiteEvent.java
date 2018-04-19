@@ -27,7 +27,8 @@ public class SiteEvent extends Event {
         // find arc above site event
         ArcNode arcNode = beachLine.getArcNode(point);
         if (arcNode == null) {
-            // corner case happen when this site event with any previous site event are same y-coordinate
+            // corner case happen when this site event with any previous sites event have same y-coordinate
+            beachLine.insertFirstArc(point);
             return;
         }
 
@@ -38,7 +39,8 @@ public class SiteEvent extends Event {
             arcNode.deleteCircleEvent();
         }
         
-        // replace arc node by sub-tree in beach line ...
+        // split arc node and replace arc node by sub-tree in beach line ...
+        ArcNode newArc = beachLine.splitArc(arcNode, point);
 
     }
 
