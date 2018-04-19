@@ -16,14 +16,32 @@ import static java.lang.Math.sqrt;
  */
 public class UtilManager {
 
+    /**
+     * 
+     * @param p1
+     * @param p2
+     * @return Euclidean distance between p1 and p2
+     */
     public static double calcEuclidean(Point p1, Point p2) {
         return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
     }
 
+    /**
+     * 
+     * @param x
+     * @return square of x. This utility method order to code quickly and briefly
+     */
     public static double sq(double x) {
         return pow(x, 2);
     }
 
+    /**
+     * 
+     * @param p1 is first point
+     * @param p2 is second point
+     * @param p3 is third point
+     * @return center of circle that through triple point
+     */
     public static Point calcCenterOfCircle(Point p1, Point p2, Point p3) {
         double a1 = 2 * (p2.x - p1.x);
         double a2 = 2 * (p3.x - p1.x);
