@@ -46,7 +46,7 @@ public class Vertex extends Point {
     public int hashCode() {
         int hash = 7;
         hash = 37 * hash + super.hashCode();
-        hash = 37 * hash + Objects.hashCode(this.incidentEdge);
+//        hash = 37 * hash + Objects.hashCode(this.incidentEdge);
         return hash;
     }
 
