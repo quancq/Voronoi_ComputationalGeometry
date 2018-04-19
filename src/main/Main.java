@@ -24,8 +24,12 @@ public class Main {
         double maxY = 50;
 
         VoronoiDiagram VD = UtilManager.randomVD(numSite, numEdge, maxX, maxY);
-        File file = new File("src/dataset/input_site-" + numSite + "-edge-" + numEdge + ".txt");
+        String path = "src/dataset/input_site-" + numSite + "-edge-" + numEdge + ".txt";
+        File file = new File(path);
 
         DataIO.writeVoronoiDiagram(file.getAbsolutePath(), VD);
+        
+        VoronoiDiagram vd2 = DataIO.readVornoiDiagram(file.getAbsolutePath());
+        DataIO.writeVoronoiDiagram(file.getAbsolutePath(), vd2);
     }
 }
