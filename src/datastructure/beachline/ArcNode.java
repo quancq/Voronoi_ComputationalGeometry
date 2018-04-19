@@ -26,6 +26,10 @@ public class ArcNode {
         this.site = site;
     }
 
+    public ArcNode(Point site) {
+        this.site = site;
+    }
+    
     public BreakpointNode getLeftNode() {
         return leftNode;
     }
