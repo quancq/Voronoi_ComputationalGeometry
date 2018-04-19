@@ -30,6 +30,9 @@ public class BreakpointNode extends Node {
         this.trackedHalfEdge = trackedHalfEdge;
     }
 
+    public BreakpointNode() {
+    }
+
     public Point getLeftSite() {
         return leftSite;
     }
@@ -44,6 +47,14 @@ public class BreakpointNode extends Node {
 
     public ArcNode getRightNode() {
         return rightNode;
+    }
+
+    public BreakpointNode getLeftBreakpoint() {
+        return leftNode.getLeftNode();
+    }
+
+    public BreakpointNode getRightBreakpoint() {
+        return rightNode.getRightNode();
     }
 
     public HalfEdge getTrackedHalfEdge() {
@@ -86,22 +97,41 @@ public class BreakpointNode extends Node {
         Point l = new Point(0, leftSite.y - yCoordinateOfSweepLine);
         Point r = new Point(rightSite.x - leftSite.x, rightSite.y - yCoordinateOfSweepLine);
 
+        if (l.y == 0 && r.y == 0) {
+            // none exist breakpoint
+            return null;
+        }
+
         // compute intersection of parabolas
         // solve two equal distance equations
         // equation 1: sq(xTransform) + sq(l.y) = 2 * l.y * yTransform
         // equation 2: sq(xTransform - r.x) + sq(r.y) = 2 * r.y * yTransform;
-        double xTransform, yTransform, x, y;
+        double xTransform, xTransform1, xTransform2;
+        double yTransform, yTransform1, yTransform2;
+        double x, y;
         if (l.y == r.y) {
+            // only 1 solution
             xTransform = r.x / 2.0;
             yTransform = (4 * sq(l.y) + sq(r.x)) / (8 * l.y);
         } else if (l.y == 0.0) {
+            // only 1 solution
             xTransform = l.x; // x = 0
             yTransform = (sq(r.x) + sq(r.y)) / (2 * r.y);
         } else if (r.y == 0.0) {
+            // only 1 solution
             xTransform = r.x;
             yTransform = (sq(l.y) + sq(r.x)) / (2 * l.y);
         } else {
-            xTransform = (l.y * r.x - sqrt(l.y * r.y * (sq(l.y - r.y) + sq(r.x)))) / (l.y - r.y);
+            // have 2 solutions
+            double temp = sqrt(l.y * r.y * (sq(l.y - r.y) + sq(r.x)));
+
+            // solution x smaller
+            xTransform1 = (l.y * r.x - temp) / (l.y - r.y);
+            // solution x greater
+            xTransform2 = (l.y * r.x + temp) / (l.y - r.y);
+            // choose solution exactly
+            xTransform = chooseLeftBreakPoint() ? xTransform1 : xTransform2;
+
             yTransform = (sq(xTransform) + sq(l.y)) / (2 * l.y);
         }
 
@@ -110,6 +140,19 @@ public class BreakpointNode extends Node {
 
         Point breakpoint = new Point(x, y);
         return breakpoint;
+    }
+
+    /**
+     *
+     * @return True if this breakpoint is left breakpoint in 2 candidate
+     * breakpoint. Return False if is right breakpoint
+     */
+    private boolean chooseLeftBreakPoint() {
+        if(rightSite.y < leftSite.y){
+            // right site below of left site
+            return true;
+        }
+        return false;
     }
 
 }
