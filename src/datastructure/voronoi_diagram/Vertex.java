@@ -19,6 +19,10 @@ public class Vertex extends Point {
     public Vertex(double x, double y) {
         super(x, y);
     }
+    
+    public Vertex(Point p){
+        super(p);
+    }
 
     public Vertex(double x, double y, HalfEdge incidentEdge) {
         super(x, y);

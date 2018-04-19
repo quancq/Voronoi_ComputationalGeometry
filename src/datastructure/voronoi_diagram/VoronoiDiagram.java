@@ -8,6 +8,7 @@ package datastructure.voronoi_diagram;
 import algorithm.AlgorithmManager;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Class extend DCEL class with additional list of sites, mapping between sites
@@ -28,6 +29,30 @@ public class VoronoiDiagram extends DCEL {
         hmPointToFace = new HashMap<>();
     }
 
+    public ArrayList<Point> getListSites() {
+        return listSites;
+    }
+
+    public HashMap<Face, Point> getHmFaceToPoint() {
+        return hmFaceToPoint;
+    }
+
+    public HashMap<Point, Face> getHmPointToFace() {
+        return hmPointToFace;
+    }
+
+    public void setListSites(ArrayList<Point> listSites) {
+        this.listSites = listSites;
+    }
+
+    public void setHmFaceToPoint(HashMap<Face, Point> hmFaceToPoint) {
+        this.hmFaceToPoint = hmFaceToPoint;
+    }
+
+    public void setHmPointToFace(HashMap<Point, Face> hmPointToFace) {
+        this.hmPointToFace = hmPointToFace;
+    }
+    
     @Override
     public String toString() {
         String strDCEL = super.toString();
@@ -88,5 +113,19 @@ public class VoronoiDiagram extends DCEL {
 
     public void insertHalfEdge(HalfEdge halfEdge){
         hsHalfEdges.add(halfEdge);
+    }
+    
+    public ArrayList<Edge> getListEdges(){
+        ArrayList<Edge> edgeList = new ArrayList<>();
+        HashSet<HalfEdge> hs = new HashSet<>();
+        
+        for(HalfEdge halfEdge : hsHalfEdges){
+            if(hs.contains(halfEdge) || hs.contains(halfEdge.getTwinEdge())){
+                continue;
+            }
+            hs.add(halfEdge);
+            edgeList.add(new Edge(halfEdge.getOriginVertex(), halfEdge.getDestVertex()));
+        }
+        return edgeList;
     }
 }

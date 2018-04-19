@@ -22,6 +22,10 @@ public class HalfEdge {
     public HalfEdge() {
     }
 
+    public HalfEdge(Vertex originVertex) {
+        this.originVertex = originVertex;
+    }
+    
     public Vertex getOriginVertex() {
         return originVertex;
     }
