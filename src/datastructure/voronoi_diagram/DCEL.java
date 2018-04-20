@@ -5,6 +5,7 @@
  */
 package datastructure.voronoi_diagram;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -14,16 +15,20 @@ import java.util.HashSet;
  *
  * @author quancq
  */
-public class DCEL {
+public class DCEL implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     protected HashSet<Vertex> hsVertices;
     protected HashSet<HalfEdge> hsHalfEdges;
     protected HashSet<Face> hsFaces;
+    protected ArrayList<Edge> listEdges;
 
     public DCEL() {
         this.hsVertices = new HashSet<>();
         this.hsHalfEdges = new HashSet<>();
         this.hsFaces = new HashSet<>();
+        this.listEdges = new ArrayList<>();
     }
 
     public DCEL(HashSet<Vertex> hsVertices, HashSet<HalfEdge> hsHalfEdges, HashSet<Face> hsFaces) {
@@ -48,6 +53,21 @@ public class DCEL {
         return new ArrayList<>(hsHalfEdges);
     }
 
+    public ArrayList<Edge> getListEdges() {
+        ArrayList<Edge> edgeList = new ArrayList<>();
+        HashSet<HalfEdge> hs = new HashSet<>();
+
+        for (HalfEdge halfEdge : hsHalfEdges) {
+            if (hs.contains(halfEdge) || hs.contains(halfEdge.getTwinEdge())) {
+                continue;
+            }
+            hs.add(halfEdge);
+            edgeList.add(new Edge(halfEdge.getOriginVertex(), halfEdge.getDestVertex()));
+        }
+        this.listEdges = edgeList;
+        return edgeList;
+    }
+
     public HashSet<Face> getHsFaces() {
         return hsFaces;
     }
@@ -68,16 +88,20 @@ public class DCEL {
         this.hsFaces = hsFaces;
     }
 
+    public void insertHalfEdge(HalfEdge halfEdge) {
+        hsHalfEdges.add(halfEdge);
+    }
+
     @Override
     public String toString() {
-        StringBuilder strBuilder = new StringBuilder("\n============= DCEL =============");
+        StringBuilder strBuilder = new StringBuilder("\n============= <DCEL> =============");
 
         strBuilder.append("\nList Vertex:\n");
         hsVertices.forEach((v) -> {
             strBuilder.append(v);
         });
 
-        strBuilder.append("\nList Edge:\n");
+        strBuilder.append("\nList Half Edge:\n");
         hsHalfEdges.forEach((e) -> {
             strBuilder.append(e);
         });
@@ -87,7 +111,7 @@ public class DCEL {
             strBuilder.append(f);
         });
 
-        strBuilder.append("\n============= DCEL =============");
+        strBuilder.append("\n============= </DCEL> =============");
         return strBuilder.toString();
     }
 

@@ -5,22 +5,24 @@
  */
 package datastructure.voronoi_diagram;
 
-import java.util.Objects;
+import java.io.Serializable;
 
 /**
  * Class implement vertex of DCEL
  *
  * @author quancq
  */
-public class Vertex extends Point {
+public class Vertex extends Point implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private HalfEdge incidentEdge;          // incidentEdge is an arbitrary half-edge that has vertex as its origin
 
     public Vertex(double x, double y) {
         super(x, y);
     }
-    
-    public Vertex(Point p){
+
+    public Vertex(Point p) {
         super(p);
     }
 

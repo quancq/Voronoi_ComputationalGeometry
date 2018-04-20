@@ -5,17 +5,20 @@
  */
 package datastructure.voronoi_diagram;
 
+import java.io.Serializable;
 import static java.lang.Math.abs;
 //import static util.Math.EPSILON;
 //import static util.Math.PRECISION;
 
 /**
+ * Point is either site or any point on planar subdivision
  *
  * @author quancq
  */
-public class Point {
+public class Point implements Serializable {
 
-    // Point is either site or any point on planar subdivision
+    private static final long serialVersionUID = 1L;
+
     public final double x;
     public final double y;
 
@@ -23,8 +26,8 @@ public class Point {
         this.x = x;
         this.y = y;
     }
-    
-    public Point(Point p){
+
+    public Point(Point p) {
         this.x = p.x;
         this.y = p.y;
     }
@@ -32,7 +35,7 @@ public class Point {
     @Override
     public String toString() {
 //        return "(" + x + "," + y + ")";
-        return String.format(" (%.4f, %.4f)", x, y);
+        return String.format("(%.4f, %.4f)", x, y);
     }
 
 //    @Override

@@ -5,14 +5,18 @@
  */
 package datastructure.voronoi_diagram;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
+ * Half edge is type of record in DCEL
  *
  * @author quancq
  */
-public class HalfEdge {
-    // Half edge is type of record in DCEL
+public class HalfEdge implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private Vertex originVertex;                // is origin vertex of this half-edge
     private Face incidentFace;                  // is face which bounded by this half-edge
     private HalfEdge twinEdge;                  // is twin edge of this half-edge
@@ -25,7 +29,7 @@ public class HalfEdge {
     public HalfEdge(Vertex originVertex) {
         this.originVertex = originVertex;
     }
-    
+
     public Vertex getOriginVertex() {
         return originVertex;
     }
@@ -46,11 +50,11 @@ public class HalfEdge {
         return prevEdge;
     }
 
-    public Vertex getDestVertex(){
+    public Vertex getDestVertex() {
         // return destination vertex of this half-edge
         return twinEdge.getOriginVertex();
     }
-    
+
     public void setOriginVertex(Vertex originVertex) {
         this.originVertex = originVertex;
     }

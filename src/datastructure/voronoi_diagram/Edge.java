@@ -5,11 +5,15 @@
  */
 package datastructure.voronoi_diagram;
 
+import java.io.Serializable;
+
 /**
  *
  * @author quancq
  */
-public class Edge {
+public class Edge implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Point v1;
     private Point v2;

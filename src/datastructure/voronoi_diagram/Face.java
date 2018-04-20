@@ -5,16 +5,19 @@
  */
 package datastructure.voronoi_diagram;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
 /**
+ * Face is a region on planar subdivision
  *
  * @author quancq
  */
-public class Face {
-    // Face is a region on planar subdivision
-    
+public class Face implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     // outerComponent is an arbitrary half-edge on outer boundary of this face
     private HalfEdge outerComponent;
     // innerComponents is a list of half-edges which each is an arbitrary half-edge on one hole of this face
@@ -58,7 +61,7 @@ public class Face {
 //        for(HalfEdge halfEdge : innerComponents){
 //            hash = 23 * hash + halfEdge.hashCode();
 //        }
-        
+
         return hash;
     }
 
@@ -82,8 +85,5 @@ public class Face {
         }
         return true;
     }
-    
-    
-    
-    
+
 }

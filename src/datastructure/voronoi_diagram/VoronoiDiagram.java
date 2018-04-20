@@ -6,9 +6,9 @@
 package datastructure.voronoi_diagram;
 
 import algorithm.AlgorithmManager;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 /**
  * Class extend DCEL class with additional list of sites, mapping between sites
@@ -16,7 +16,9 @@ import java.util.HashSet;
  *
  * @author quancq
  */
-public class VoronoiDiagram extends DCEL {
+public class VoronoiDiagram extends DCEL implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private ArrayList<Point> listSites;
     private HashMap<Face, Point> hmFaceToPoint;             // mapping face to site
@@ -52,18 +54,18 @@ public class VoronoiDiagram extends DCEL {
     public void setHmPointToFace(HashMap<Point, Face> hmPointToFace) {
         this.hmPointToFace = hmPointToFace;
     }
-    
+
     @Override
     public String toString() {
         String strDCEL = super.toString();
-        String strSites = new String(strDCEL);
-        strSites += "\n============= Voronoi =============";
+        String strSites = strDCEL;
+        strSites += "\n============= <Voronoi> =============";
         strSites += "\nList of sites:\n";
 
         for (Point p : listSites) {
             strSites += p.toString();
         }
-        strSites += "\n============= Voronoi =============";
+        strSites += "\n============= </Voronoi> =============";
 
         return strSites;
     }
@@ -111,21 +113,4 @@ public class VoronoiDiagram extends DCEL {
         return furthestVertex;
     }
 
-    public void insertHalfEdge(HalfEdge halfEdge){
-        hsHalfEdges.add(halfEdge);
-    }
-    
-    public ArrayList<Edge> getListEdges(){
-        ArrayList<Edge> edgeList = new ArrayList<>();
-        HashSet<HalfEdge> hs = new HashSet<>();
-        
-        for(HalfEdge halfEdge : hsHalfEdges){
-            if(hs.contains(halfEdge) || hs.contains(halfEdge.getTwinEdge())){
-                continue;
-            }
-            hs.add(halfEdge);
-            edgeList.add(new Edge(halfEdge.getOriginVertex(), halfEdge.getDestVertex()));
-        }
-        return edgeList;
-    }
 }
