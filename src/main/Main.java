@@ -6,6 +6,7 @@
 package main;
 
 import datastructure.voronoi_diagram.VoronoiDiagram;
+import gui.MainGui;
 import java.io.File;
 import java.nio.file.Paths;
 import util.DataIO;
@@ -45,5 +46,7 @@ public class Main {
         // print
         System.out.println(VD3);
         System.out.println(VD3.getHsHalfEdges());
+        
+        MainGui.showVoronoiDiagram(VD3);
     }
 }
