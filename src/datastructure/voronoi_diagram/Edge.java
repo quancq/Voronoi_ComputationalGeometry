@@ -39,4 +39,9 @@ public class Edge implements Serializable {
         this.v2 = v2;
     }
 
+    @Override
+    public String toString() {
+        return "E(" + v1 + ", " + v2 + ")";
+    }
+
 }
