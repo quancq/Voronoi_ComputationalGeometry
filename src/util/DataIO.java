@@ -11,8 +11,12 @@ import datastructure.voronoi_diagram.Point;
 import datastructure.voronoi_diagram.Vertex;
 import datastructure.voronoi_diagram.VoronoiDiagram;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -37,14 +41,30 @@ public class DataIO {
                 Point v2 = edge.getV2();
                 file.write(String.format("\n%.4f %.4f %.4f %.4f", v1.x, v1.y, v2.x, v2.y));
             }
-            System.out.println("\n Write Voronoi diagram to " + path + " done");
             file.close();
+            System.out.println("\nWrite Voronoi diagram to " + path + " done");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static VoronoiDiagram readVornoiDiagram(String path) {
+    public static void writeVoronoiDiagramObject(String path, VoronoiDiagram VD) {
+
+        try (FileOutputStream fos = new FileOutputStream(path)) {
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            // write object to file
+            oos.writeObject(VD);
+
+            oos.close();
+            fos.close();
+            System.out.println("\nWrite Voronoi diagram to " + path + " done");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static VoronoiDiagram readVoronoiDiagram(String path) {
         VoronoiDiagram VD = new VoronoiDiagram();
 
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
@@ -64,7 +84,7 @@ public class DataIO {
                 double y1 = Double.parseDouble(arr[1]);
                 double x2 = Double.parseDouble(arr[2]);
                 double y2 = Double.parseDouble(arr[3]);
-                
+
                 Vertex v1 = new Vertex(x1, y1);
                 Vertex v2 = new Vertex(x2, y2);
                 HalfEdge halfEdge1 = new HalfEdge(v1);
@@ -73,7 +93,7 @@ public class DataIO {
                 halfEdge2.setTwinEdge(halfEdge1);
                 v1.setIncidentEdge(halfEdge1);
                 v2.setIncidentEdge(halfEdge2);
-                
+
                 hs.add(halfEdge1);
                 hs.add(halfEdge2);
             }
@@ -81,6 +101,22 @@ public class DataIO {
             br.close();
             VD.setListSites(siteList);
             VD.setHsHalfEdges(hs);
+            System.out.println("\nRead file " + path + " done");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return VD;
+    }
+
+    public static VoronoiDiagram readVoronoiDiagramObject(String path) {
+        VoronoiDiagram VD = null;
+        try (FileInputStream fis = new FileInputStream(path)) {
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            VD = (VoronoiDiagram) ois.readObject();
+            ois.close();
+            fis.close();
             System.out.println("\nRead file " + path + " done");
         } catch (Exception e) {
             e.printStackTrace();
