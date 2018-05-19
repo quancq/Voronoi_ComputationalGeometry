@@ -18,6 +18,8 @@ import util.UtilManager;
  * @author quancq
  */
 public class MainGui {
+	public static final int RADIUSPOINT = 3;  //bán kinh của điểm cần vẽ
+    public static final int MAGNIFY = 10;//Mức độ phóng đại của hình ảnh được vẽ
     
     public static void main(String[] args) {
         int numSite = 10;
@@ -57,9 +59,26 @@ public class MainGui {
         ArrayList<Edge> edgeList = VD.getListEdges();
         
         // loop through two above list to show GUI
+        JFrame testFrame = new JFrame();
+        testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        final LineAndPointComponent comp = new LineAndPointComponent();
+        comp.setPreferredSize(new Dimension(500, 500));
+        testFrame.getContentPane().add(comp, BorderLayout.CENTER);
+        JPanel buttonsPanel = new JPanel();
+        for(Point pnt : siteList){
+            comp.addPoint(MAGNIFY * (int)pnt.x, MAGNIFY * (int)pnt.y, RADIUSPOINT);
+        }
         
+        for(Edge edg: edgeList){
+            comp.addLine(MAGNIFY*(int)edg.getV1().x,MAGNIFY * (int)edg.getV1().y,
+                    MAGNIFY * (int)edg.getV2().x, MAGNIFY *(int)edg.getV2().y);
+        }
+        testFrame.pack();
+        testFrame.setVisible(true);
+    
         System.out.println(siteList);
         System.out.println(edgeList);
         
     }
+	
 }
